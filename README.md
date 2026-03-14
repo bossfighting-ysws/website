@@ -20,4 +20,5 @@ More importantly, we'll be publishing a game with everyone's bossfights to itch!
 
 so WHAT ARE YOU WAITING FOR? RSVP HERE, CHECKOUT OUR WEBSITE, AND JOIN #bossfighting!
 ## TODO:
+- [ ] Get the title card to fully die 
 - Get people's drawings and move through them like a slideshow in the background
