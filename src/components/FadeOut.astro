@@ -1,0 +1,38 @@
+---
+interface Props {
+    duration?: number;
+    fadeStart?: number;
+    class?: string;
+    scrollHeight?: number;
+}
+const { duration = 1, fadeStart = 0.7, scrollHeight = duration, class: className = "" } = Astro.props;
+---
+
+<section 
+    class={`fade-section relative ${className}`}
+    style={`height: ${scrollHeight * 100}vh`}
+>
+    <div
+        class="fade-target sticky top-0 flex items-center justify-center h-screen"
+    >
+        <slot />
+    </div>
+</section>
+<script is:inline define:vars={{ duration, fadeStart }}>
+    const section = document.currentScript.previousElementSibling;
+    const target = section.querySelector(".fade-target");
+
+    function compute() {
+        const vh = window.innerHeight;
+        const rect = section.getBoundingClientRect();
+        // progress: 0 when section top hits viewport top, 1 when fully scrolled through
+        const progress = Math.max(0, Math.min(1, -rect.top / (vh * (duration - 1))));
+        const opacity = progress < fadeStart
+            ? 1
+            : 1 - (progress - fadeStart) / (1 - fadeStart);
+        target.style.opacity = Math.max(0, opacity);
+    }
+
+    window.addEventListener("scroll", compute, { passive: true });
+    compute();
+</script>
