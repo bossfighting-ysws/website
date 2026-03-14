@@ -1,0 +1,116 @@
+---
+import "../styles/global.css";
+const faqs = [
+    {
+        id: "what-is-bf",
+        question: "What is Bossfighting?",
+        answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!",
+    },
+    {
+        id: "when-is-bf",
+        question: "When does this start? When can I begin?",
+        answer: `The program itself has not started yet, and so any time you put in will not be counted. If you are so inclined, you can start working on the project at any time,
+        just know that your time will unfortunately not be counted.`,
+    },
+    {
+        id: "who-can-join",
+        question: "Who can join?",
+        answer: "Anyone who is 13-18 years old can join! All skill levels, from anywhere in the world. Just sign up!",
+    },
+    {
+        id: "do-i-need-experience",
+        question: "Do I need Godot Experience?",
+        answer: "Nope! We'll have tutorials, run workshops, and have support calls in Slack to help you get started.",
+    },
+    {
+        id: "is-it-legit",
+        question: "This is free? Why should I trust you?",
+        answer: `Yup, all for free! <a href="https://the.hackfoundation.org/" class="text-red-600 hover:underline decoration-wavy ">Hack Club is a 501(c)3 non-profit organization</a>,
+            and we've run a bunch of events like this in the past.
+            For example, we ran a <a href="https://www.youtube.com/watch?v=kaEFv7e49mo" class="text-red-600 hover:underline decoration-wavy ">180-person hardware hackathon at GitHub HQ</a>,
+            and a <a href="https://www.youtube.com/watch?v=Gtjyyu82pw4" class="text-red-600 hover:underline decoration-wavy ">seven-day game jam in Shanghai, China.</a>`,
+    },
+    {
+        id: "can-i-use-ai",
+        question: "Can I use AI?",
+        answer: `<p class="font-display text-gray-400 indent-4">    Use of generative AI for <span class="bold">graphics and audio</span> is <span class="bold">prohibited.</span>
+      Use of generative AI for other purposes is allowed, but we will look at, review, and reject projects which qualify as 'AI slop.'
+      You must also not write any updates, project descriptions, READMEs, etc. using generative AI --- It's your project, not some LLM's.</p>
+      <p class="font-display text-gray-400 indent-4">    We encourage you to write code without being reliant on AI. Ask yourself: would you have done that without AI? If yes, then learning things
+      like syntax and best practices is ok; if no, then stop what you are doing and backtrack. If you have any questions, please ask in the slack.</p>
+      <p class="font-display text-gray-400 indent-4">    'AI slop' is an umbrella term which includes projects that <span class="italics">feel</span> as though little human effort has been put into it
+      beyond vibecoding for the sake of hours. We reserve the right to decide whether or not a project qualifies as 'AI slop' and reject it at any point during
+      the program. If your project is polished, creative, and has the look of a real human behind it, we're highly unlikely to reject it!</p>`,
+    },
+    {
+        id: "art-and-music",
+        question: "Does making art or music count towards my time?",
+        answer: `To be decided. We would need to implement a logging system either by ourselves or with lapse. You can ping the developers or go to the
+      #bossfighting-dev slack channel if you would like an update or want to remind us to get this done. Please be patient!`,
+    },
+    {
+        id: "existing-project",
+        question: "Can I submit to an existing project?",
+        answer: `Existing projects are allowed, but any time from before the program started (date tbd) will not count. In other words, you can only count time
+      from when you started this program.`,
+    },
+    {
+        id: "how-many",
+        question: "How many bossfights can I make?",
+        answer: `You can make as many as you want! Projects will only count towards your total time once they have been submitted and pulled into the master repository,
+      but beyond that the possibilities are endless! We even recommend making a series of bossfights once you have some boilerplate code written. (If enough people do this,
+      we will implement a 'story mode' to go through your bossfights in order)`,
+    },
+    {
+        id: "fraud-ysws",
+        question:
+            "Can I submit my project to this event and another Hack Club program?",
+        answer: `Sorry, but no! This is called 'double-dipping,' and is prohibited. If you make a project, you can only submit it to one Hack Club program, unless
+      the program specifically says otherwise. For us, the answer is a hard no.`,
+    },
+    {
+        id: "involvement",
+        question: "Can I get involved or contribute?",
+        answer: `Absolutely! If you want to help with the development, you can contact the developers or just make a pull request! There are other ways too;
+      more people running workshops, support calls, lock-in huddles, or even just answering questions would be amazing! If anything interests you or you
+      want to help out some other way, reach out!`,
+    },
+    // {
+    //   id: "",
+    //   question: "?",
+    //   answer: ``
+    // },
+    // {
+    //   id: "",
+    //   question: "?",
+    //   answer: ``
+    // },
+];
+---
+
+<section
+    id="faq"
+    class="bg-gray-950 flex flex-col items-center justify-center px-6 py-24 scroll-mt-2"
+>
+    <h2
+        class="font-display text-4xl sm:text-6xl text-gray-100 [text-shadow:4px_4px_0_red] mb-6 self-center"
+    >
+        Frequently Asked Questions
+    </h2>
+
+    <div class="max-w-2xl w-full space-y-10">
+        {
+            faqs.map(({ id, question, answer }) => (
+                <div id={id} class="border-red-500 pl-5 scroll-mt-8">
+                    <h3 class="font-display text-xl sm:text-2xl text-gray-100">
+                        {question}
+                    </h3>
+                    <p
+                        class="font-display text-gray-400 indent-4"
+                        set:html={answer}
+                    />
+                </div>
+            ))
+        }
+    </div>
+</section>
