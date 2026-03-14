@@ -1,51 +1,77 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 const faqs = [
-  {
-    id: "what-is-bf",
-    question: "What is Bossfighting?",
-    answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  },
-  {
-    id: "who-can-join",
-    question: "Who can join?",
-    answer: "Anyone can join! Anyone from all skill levels, whether you've never touched Godot or you're a seasoned game dev. We want you!! For those who are new, don't worry! We will have tutorials and guidance in Slack."
-  },
-  // {
-  //   id: "what-is-bf",
-  //   question: "What is Bossfighting?",
-  //   answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  // },
-  // {
-  //   id: "what-is-bf",
-  //   question: "What is Bossfighting?",
-  //   answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  // },
-  // {
-  //   id: "what-is-bf",
-  //   question: "What is Bossfighting?",
-  //   answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  // },
-  // {
-  //   id: "what-is-bf",
-  //   question: "What is Bossfighting?",
-  //   answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  // },
-  // {
-  //   id: "what-is-bf",
-  //   question: "What is Bossfighting?",
-  //   answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  // },
-  // {
-  //   id: "what-is-bf",
-  //   question: "What is Bossfighting?",
-  //   answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!"
-  // },
-]
+    {
+        id: "what-is-bf",
+        question: "What is Bossfighting?",
+        answer: "Bossfighting is a Hack Club event where you build a boss fight in Godot, and then you can play everyone's bosses into one epic game! Cool merch and more to come in terms of prizes too!",
+    },
+    {
+        id: "who-can-join",
+        question: "Who can join?",
+        answer: "Anyone who is 13-18 years old can join! All skill levels, from anywhere in the world. Just sign up!",
+    },
+    {
+        id: "do-i-need-experience",
+        question: "Do I need Godot Experience?",
+        answer: "Nope! We'll have tutorials, run workshops, and have support calls in Slack to help you get started.",
+    },
+    {
+        id: "is-it-legit",
+        question: "This is free? Why should I trust you?",
+        answer: `Yup, all for free! <a href="https://the.hackfoundation.org/" class="text-red-600 hover:underline decoration-wavy ">Hack Club is a 501(c)3 non-profit organization</a>, 
+            and we've run a bunch of events like this in the past. 
+            For example, we ran a <a href="https://www.youtube.com/watch?v=kaEFv7e49mo" class="text-red-600 hover:underline decoration-wavy ">180-person hardware hackathon at GitHub HQ</a>, 
+            and a <a href="https://www.youtube.com/watch?v=Gtjyyu82pw4" class="text-red-600 hover:underline decoration-wavy ">seven-day game jam in Shanghai, China.</a>`,
+    },
+    // {
+    //   id: "do-i-need-experience",
+    //   question: "Do I need Godot Experience?",
+    //   answer: "No"
+    // },
+    // {
+    //   id: "do-i-need-experience",
+    //   question: "Do I need Godot Experience?",
+    //   answer: "No"
+    // },
+    // {
+    //   id: "do-i-need-experience",
+    //   question: "Do I need Godot Experience?",
+    //   answer: "No"
+    // },
+    // {
+    //   id: "do-i-need-experience",
+    //   question: "Do I need Godot Experience?",
+    //   answer: "No"
+    // },
+    // {
+    //   id: "do-i-need-experience",
+    //   question: "Do I need Godot Experience?",
+    //   answer: "No"
+    // },
+];
 ---
 
-<section id="faq" class="bg-gray-950 flex flex-col items-center justify-center px-6 py-24 scroll-mt-2">
-    
-    <h1 class="font-display outline-gray-100 text-7xl sm:text-8xl md:text-9xl text-gray-100 [text-shadow:2px_2px_0_red] md:[text-shadow:4px_4px_0_red]">BOSSFIGHTING</h2>
-    <h2 class="font-display text-7xl sm:text-8xl text-gray-100 [text-shadow:4px_4px_0_red]">Frequently Asked Questions</h2>
+<section
+    id="faq"
+    class="bg-gray-950 flex flex-col items-center justify-center px-6 py-24 scroll-mt-2"
+>
+    <h2
+        class="font-display text-4xl sm:text-6xl text-gray-100 [text-shadow:4px_4px_0_red] mb-6 self-center"
+    >
+        Frequently Asked Questions
+    </h2>
+
+    <div class="max-w-2xl w-full space-y-10">
+        {
+            faqs.map(({ id, question, answer }) => (
+                <div id={id} class="border-red-500 pl-5 scroll-mt-8">
+                    <h3 class="font-display text-xl sm:text-2xl text-gray-100">
+                        {question}
+                    </h3>
+                    <p class="font-display text-gray-400" set:html={answer} />
+                </div>
+            ))
+        }
+    </div>
 </section>
