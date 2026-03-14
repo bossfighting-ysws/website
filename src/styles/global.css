@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 @import "tailwindcss";
 
-
-
-
 @font-face {
     font-family: "Origami Mommy";
     src: url('../../public/origa___.ttf') format('truetype')
