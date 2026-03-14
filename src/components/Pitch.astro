@@ -1,0 +1,177 @@
+---
+import "../styles/global.css";
+import Reveal from "../components/Reveal.astro";
+import FadeOut from "../components/FadeOut.astro";
+const segmentsDefinition = [
+    {
+        words: [
+            { text: "Boss", class: "font-bold text-white" },
+            { text: "/bôs/", class: "italic text-white/60" },
+        ],
+        class: "font-display text-5xl tracking-widest text-gray-100 [text-shadow:2px_2px_0_red] font-bold",
+        breakAfter: true,
+    },
+    {
+        words: [
+            { text: "A", class: "" },
+            { text: "significantly", class: "text-red-500" },
+            { text: "powerful", class: "" },
+            { text: "non-player", class: "" },
+            { text: "character", class: "" },
+            { text: "created", class: "" },
+            { text: "as", class: "" },
+            { text: "a", class: "" },
+            { text: "major", class: "[[text-shadow:2px_2px_0_red]text-shadow:2px_2px_0_red]" },
+            { text: "opponent", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "to", class: "" },
+            { text: "players.", class: "" },
+        ],
+        class: "font-display text-gray-100 text-3xl leading-7",
+        holdAfter: 0.2,
+    },
+];
+const segmentsQuestion = [
+    {
+        words: [
+            { text: "Ever", class: "" },
+            { text: "wanted", class: "" },
+            { text: "to", class: "" },
+            { text: "try", class: "" },
+            { text: "something", class: "" },
+            { text: "different", class: "text-red-500" },
+            { text: "from", class: "" },
+            { text: "the", class: "" },
+            { text: "traditional", class: "" },
+            { text: "game-dev", class: "" },
+            { text: "'Make", class: "text-white/40" },
+            { text: "a", class: "text-white/40" },
+            { text: "game,", class: "text-white/40" },
+            { text: "win", class: "text-white/40" },
+            { text: "a", class: "text-white/40" },
+            { text: "prize?'", class: "text-white/40" },
+            { text: "For", class: "" },
+            { text: "this", class: "" },
+            { text: "YSWS,", class: "" },
+            { text: "make", class: "" },
+            { text: "a", class: "" },
+            { text: "bossfight", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "in", class: "" },
+            { text: "Godot!", class: "text-blue-400 font-semibold" },
+            { text: "It", class: "" },
+            { text: "can", class: "" },
+            { text: "be", class: "" },
+            { text: "anything:", class: "italic" },
+        ],
+        breakAfter: false,
+        class: "font-display text-gray-100 text-2xl leading-7 tracking-wide"
+    },
+    {
+        words: [
+            { text: "•", class: "text-red-400 font-bold" },
+            { text: "dungeon", class: "font-semibold" },
+            { text: "crawl", class: "" },
+            { text: "final", class: "font-semibold" },
+            { text: "boss?", class: "text-red-500" },
+            { text: "<br />", html:true, class: "h-4" },
+            { text: "•", class: "text-red-400" },
+            { text: "rhythm", class: "italic text-yellow-400" },
+            { text: "game", class: "" },
+            { text: "hell?", class: "underline decoration-wavy text-red-500" },
+            { text: "<br />", html:true, class: "h-4" },
+            { text: "•", class: "text-red-400" },
+            { text: "terraria-esque", class: "italic text-green-300" },
+            { text: "bossfight?", class: "font-extrabold text-white/80" },
+            { text: "<br />", html:true, class: "h-4" },
+            { text: "All", class: "font-bold" },
+            { text: "we", class: "" },
+            { text: "need", class: "" },
+            { text: "is", class: "" },
+            { text: "something", class: "" },
+            { text: "juicy,", class: "italic text-yellow-200" },
+            { text: "hectic", class: "underline decoration-wavy text-shadow-lg text-shadow-blue-500/50" },
+            { text: "and", class: "" },
+            { text: "memorable.", class: "font-normal text-white/80 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent" },
+          ],
+        breakAfter: true,
+        class: "font-display text-gray-100 text-2xl leading-7"
+    },
+];
+const segmentsMerch = [
+    {
+        words: [
+            { text: "What", class: "" },
+            { text: "do", class: "" },
+            { text: "you", class: "text-4xl translate-2" },
+            { text: "get?", class: "text-red-500" },
+            { text: "Expect", class: "" },
+            { text: "games", class: "" },
+            { text: "(Hollow", class: "text-white-100/90" },
+            { text: "Knight,", class: "text-white-100/90" },
+            { text: "Cuphead,", class: "text-indigo-400" },
+            { text: "the", class: "" },
+            { text: "classics),", class: "" },
+            { text: "merch", class: "" },
+            { text: "for", class: "" },
+            { text: "those", class: "" },
+            { text: "games,", class: "" },
+            { text: "and", class: "" },
+            { text: "more!", class: "" },
+            { text: "More", class: "" },
+            { text: "importantly,", class: "" },
+            { text: "we'll", class: "" },
+            { text: "be", class: "" },
+            { text: "publishing", class: "" },
+            { text: "a", class: "" },
+            { text: "game", class: "" },
+            { text: "with", class: "" },
+            { text: "everyone's", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "bossfights", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "to", class: "" },
+            { text: "itch!", class: "" },
+            { text: "(and", class: "" },
+            { text: "maybe", class: "" },
+            { text: "even", class: "" },
+            { text: "Steam?!?!?!?)", class: "text-color-indigo-500/80" },
+            { text: "(and", class: "" },
+            { text: "maybe", class: "" },
+            { text: "even", class: "" },
+            { text: "merch", class: "text-shadow-lg text-shadow-indigo-400" },
+            { text: "for", class: "" },
+            { text: "your", class: "" },
+            { text: "bossfights?!?!!!?!???!?!?)", class: "" },
+        ],
+        breakAfter: true,
+        class: "font-display text-gray-100 text-2xl leading-7"
+    },
+    {
+        words: [
+            { text: "So", class: "text-white" },
+            { text: "WHAT", class: "font-extrabold text-red-400" },
+            { text: "ARE", class: "text-yellow-400" },
+            { text: "YOU", class: "text-green-400" },
+            { text: "WAITING", class: "font-extrabold text-indigo-400" },
+            { text: "FOR?", class: "text-pink-400" },
+            { text: "RSVP", class: "text-white" },
+            { text: "<a href=\"/#hero\" class=\"hover:decoration-dotted hover:decoration-wavy hover:underline-offset-0 underline-offset-5 underline\">HERE,</a>", class: "", html: true },
+            { text: "AND", class: "" },
+            { text: "JOIN", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "THE", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "FIGHT!", class: "[text-shadow:2px_2px_0_red]" },
+        ],
+        breakAfter: true,
+        class: "font-display text-gray-100 text-2xl leading-7"
+    },
+];
+---
+
+<section class="px-6 md:px-16 lg:px-24 max-w-3xl mx-auto pointer-events-none">
+    <FadeOut class="" duration={3} fadeStart={0.9} scrollHeight={2}>
+        <Reveal segments={segmentsDefinition} scrollDuration={2} />
+    </FadeOut>
+    <FadeOut class="" duration={4} fadeStart={0.9} scrollHeight={3.3}>
+        <Reveal segments={segmentsQuestion} scrollDuration={2} />
+    </FadeOut>
+    <FadeOut class="" duration={3.5} fadeStart={0.9} scrollHeight={3.2}>
+        <Reveal segments={segmentsMerch} scrollDuration={2} />
+    </FadeOut>
+</section>

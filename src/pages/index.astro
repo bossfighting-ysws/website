@@ -1,27 +1,12 @@
 ---
-import Hero from '../components/Hero.astro';
-import FAQ from '../components/FAQ.astro';
-import Layout from '../layouts/Layout.astro';
+import Hero from "../components/Hero.astro";
+import FAQ from "../components/FAQ.astro";
+import Pitch from "../components/Pitch.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Hero />
-	<FAQ />
+    <Hero />
+    <Pitch />
+    <FAQ />
 </Layout>
-
-<script>
-const hero = document.getElementById('hero');
-const scrollHint = document.getElementById('scroll-hint');
-window.addEventListener('scroll', () => {
-	const scrolled = window.scrollY;
-	const vh = window.innerHeight;
-	// fade out for one window
-	const opacity = Math.max(0, 1 - scrolled / (vh * 0.4));
-	if (hero) hero.style.opacity = opacity.toString();
-	
-	// scrollHint only visible at very top
-	if (scrollHint) {
-    	scrollHint.style.opacity = scrolled < 50 ? "1" : "0";
-	}
-}, { passive: true });
-</script>

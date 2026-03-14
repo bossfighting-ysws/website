@@ -1,0 +1,161 @@
+---
+interface Word {
+    text: string;
+    class?: string;
+    html?: boolean;
+}
+interface Segment {
+    words: Word[];
+    /// Pause before next segment (0-1) default is 0.07
+    holdAfter?: number;
+    /// How much scroll time this has; default = word count
+    weight?: number;
+    /// Class applied to this specific segment
+    class?: string;
+    breakAfter?: boolean;
+}
+interface Props {
+    segments: Segment[];
+    /// How many viewport-heights the reveal takes; default = 2.5
+    scrollDuration?: number;
+    class?: String;
+    spanClass?: String;
+}
+const {
+    segments,
+    scrollDuration = 2.5,
+    class: className = "",
+    spanClass = "",
+} = Astro.props;
+
+let wordIdx = 0;
+const processed = segments.map((seg) => ({
+    ...seg,
+    holdAfter: seg.holdAfter ?? 0.07,
+    weight: seg.weight ?? seg.words.length,
+    startIdx: wordIdx,
+    endIdx: (wordIdx += seg.words.length) - 1,
+}));
+---
+
+<section
+    class={`relative ${className}`}
+    style={`height: calc(${scrollDuration * 100}vh + 100vh)`}
+>
+    <div class="sticky top-0 h-screen flex items-center justify-center px-6">
+        <p class="reveal-text text-center leading-relaxed max-w-3xl text-3xl">
+            {
+                processed.map((seg, si) => (
+                    <>
+                        {seg.words.map((word, wi) => (
+                            <span
+                                class={`word inline ${spanClass ?? ""} ${seg.class ?? ""} ${word.class ?? ""}`}
+                                data-idx={seg.startIdx + wi}
+                            >
+                                {word.html 
+                                    ? <span set:html={ word.text } class="inline-block" />
+                                    : word.text
+                                }
+                            </span>
+                        ))}
+                        {seg.breakAfter && <br />}
+                        {si < processed.length - 1 && <br />}
+                    </>
+                ))
+            }
+        </p>
+    </div>
+</section>
+<script is:inline define:vars={{ processed, scrollDuration }}>
+    const totalHold = processed.reduce((s, seg) => s + seg.holdAfter, 0);
+    const activeRange = 1 - totalHold;
+    const totalWeight = processed.reduce((s, seg) => s + seg.weight, 0);
+
+    let cursor = 0;
+    const segBounds = processed.map((seg) => {
+        const rawActive = (seg.weight / totalWeight) * activeRange;
+        const rawStart = cursor;
+        const rawEnd = cursor + rawActive;
+        cursor = rawEnd + seg.holdAfter;
+
+        return {
+            startIdx: seg.startIdx,
+            endIdx: seg.endIdx,
+            rawStart,
+            rawEnd,
+        };
+    });
+
+    const section = document.currentScript.closest("section");
+    const words = section.querySelectorAll(".word[data-idx]");
+
+    function wordOpacity(idx, wordPhase) {
+        if (wordPhase === 0) return 0;
+
+        const seg = segBounds.find((s) => idx >= s.startIdx && idx <= s.endIdx);
+        if (!seg || wordPhase < seg.rawStart) return 0;
+
+        const localPhase = Math.min(
+            1,
+            (wordPhase - seg.rawStart) / (seg.rawEnd - seg.rawStart),
+        );
+
+        const segSize = seg.endIdx - seg.startIdx + 1;
+        const localIdx = idx - seg.startIdx;
+
+        const fadeWindow = Math.min(1, 3 / segSize);
+        const localStart = (localIdx / segSize) * (1 - fadeWindow);
+
+        return Math.max(0, Math.min(1, (localPhase - localStart) / fadeWindow));
+    }
+
+    let ticking = false;
+    let active = false;
+
+    function update() {
+        ticking = false;
+        if (!active) return;
+
+        const vh = window.innerHeight;
+
+        const wordPhase = Math.max(
+            0,
+            Math.min(
+                1,
+                (window.scrollY - section.offsetTop) / (vh * scrollDuration),
+            ),
+        );
+
+        words.forEach((el) => {
+            const idx = parseInt(el.dataset.idx);
+            const opacity = wordOpacity(idx, wordPhase);
+            el.style.opacity = opacity; 
+            el.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
+        });
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener("scroll", requestTick, { passive: true });
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            active = entries[0].isIntersecting;
+            if (active) requestTick();
+        },
+        { threshold: 0 },
+    );
+
+    observer.observe(section);
+</script>
+<style>
+    .word {
+        opacity: 0;
+        pointer-events: none;
+    }
+</style>
