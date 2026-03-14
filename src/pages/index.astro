@@ -16,7 +16,7 @@ window.addEventListener('scroll', () => {
 	const scrolled = window.scrollY;
 	const vh = window.innerHeight;
 	// fade out for one window
-	const opacity = Math.max(0, 1 - scrolled / (vh * 0.5));
+	const opacity = Math.max(0, 1 - scrolled / (vh * 0.4));
 	if (hero) hero.style.opacity = opacity.toString();
 	
 	// scrollHint only visible at very top
