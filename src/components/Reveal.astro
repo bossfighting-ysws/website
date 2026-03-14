@@ -128,7 +128,9 @@ const processed = segments.map((seg) => ({
 
         words.forEach((el) => {
             const idx = parseInt(el.dataset.idx);
-            el.style.opacity = wordOpacity(idx, wordPhase);
+            const opacity = wordOpacity(idx, wordPhase);
+            el.style.opacity = opacity; 
+            el.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
         });
     }
 
@@ -154,5 +156,6 @@ const processed = segments.map((seg) => ({
 <style>
     .word {
         opacity: 0;
+        pointer-events: none;
     }
 </style>
