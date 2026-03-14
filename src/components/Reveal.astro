@@ -5,6 +5,9 @@ interface Segment {
     holdAfter?: number;
     /// How much scroll time this has; default = word count
     weight?: number;
+    /// Class applied to this specific segment
+    class?: String;
+    breakAfter?: boolean;
 }
 interface Props {
     segments: Segment[];
@@ -13,7 +16,12 @@ interface Props {
     class?: String;
     spanClass?: String;
 }
-const { segments, scrollDuration = 2.5, class: className = "", spanClass = "" } = Astro.props;
+const {
+    segments,
+    scrollDuration = 2.5,
+    class: className = "",
+    spanClass = "",
+} = Astro.props;
 
 let wordIdx = 0;
 const processed = segments.map((seg) => ({
@@ -27,7 +35,7 @@ const processed = segments.map((seg) => ({
 
 <section
     class={`relative ${className}`}
-    style={`height: calc(${scrollDuration} * 100vh + 200vh)`}
+    style={`height: calc(${scrollDuration * 100}vh + 100vh)`}
 >
     <div class="sticky top-0 h-screen flex items-center justify-center px-6">
         <p
@@ -38,12 +46,14 @@ const processed = segments.map((seg) => ({
                     <>
                         {seg.words.map((word, wi) => (
                             <span
-                                class={`word inline ${spanClass}`}
+                                class={`word inline ${spanClass ?? ""} ${seg.class ?? ""}`}
                                 data-idx={seg.startIdx + wi}
+                                set:html={`${word} `}
                             >
-                                {word}{" "}
+                                <!-- {word}{" "} -->
                             </span>
                         ))}
+                        {seg.breakAfter && <br />}
                         {si < processed.length - 1 && <br />}
                     </>
                 ))
@@ -51,7 +61,7 @@ const processed = segments.map((seg) => ({
         </p>
     </div>
 </section>
-<script define:vars={{ processed, scrollDuration }}>
+<script is:inline define:vars={{ processed, scrollDuration }}>
     const totalHold = processed.reduce((s, seg) => s + seg.holdAfter, 0);
     const activeRange = 1 - totalHold;
     const totalWeight = processed.reduce((s, seg) => s + seg.weight, 0);

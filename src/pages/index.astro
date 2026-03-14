@@ -1,19 +1,12 @@
 ---
-import Hero from '../components/Hero.astro';
-import FAQ from '../components/FAQ.astro';
-import Pitch from '../components/Pitch.astro';
-import Reveal from '../components/Reveal.astro';
-import Layout from '../layouts/Layout.astro';
-const segments = [
-  { words: ["Bossfighting", "is", "a", "Hack", "Club", "event."] },
-  { words: ["You", "can", "play", "everyone's", "bosses."] },
-  { words: ["Cool", "merch", "and", "prizes", "await!"], holdAfter: 0.2 }
-];
+import Hero from "../components/Hero.astro";
+import FAQ from "../components/FAQ.astro";
+import Pitch from "../components/Pitch.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Hero />
-	<Reveal segments={segments} />
-	<!-- <Pitch /> -->
-	<FAQ />
+    <Hero />
+    <Pitch />
+    <FAQ />
 </Layout>
