@@ -52,7 +52,10 @@ const processed = segments.map((seg) => ({
                                 class={`word inline ${spanClass ?? ""} ${seg.class ?? ""} ${word.class ?? ""}`}
                                 data-idx={seg.startIdx + wi}
                             >
-                                {word.text}{" "}
+                                {word.html 
+                                    ? (<span set:html={ word.text } />) 
+                                    : (word.text + " ")
+                                }
                             </span>
                         ))}
                         {seg.breakAfter && <br />}
