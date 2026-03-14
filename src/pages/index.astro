@@ -13,9 +13,9 @@ import Layout from '../layouts/Layout.astro';
 const hero = document.getElementById('hero');
 window.addEventListener('scroll', () => {
 	const scrolled = window.scrollY;
-	const heroHeight = hero?.offsetHeight ?? window.innerHeight;
-	// fade out for first half of hero height
-	const opacity = Math.max(0, 1 - (scrolled / (heroHeight * 0.5)));
+	const vh = window.innerHeight;
+	// fade out for one window
+	const opacity = Math.max(0, 1 - scrolled / (vh * 0.5));
 	if (hero) hero.style.opacity = opacity.toString();
 }, { passive: true });
 </script>
