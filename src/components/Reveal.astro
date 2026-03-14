@@ -1,12 +1,17 @@
 ---
+interface Word {
+    text: string;
+    class?: string;
+    html?: boolean;
+}
 interface Segment {
-    words: string[];
+    words: Word[];
     /// Pause before next segment (0-1) default is 0.07
     holdAfter?: number;
     /// How much scroll time this has; default = word count
     weight?: number;
     /// Class applied to this specific segment
-    class?: String;
+    class?: string;
     breakAfter?: boolean;
 }
 interface Props {
@@ -38,19 +43,16 @@ const processed = segments.map((seg) => ({
     style={`height: calc(${scrollDuration * 100}vh + 100vh)`}
 >
     <div class="sticky top-0 h-screen flex items-center justify-center px-6">
-        <p
-            class="reveal-text text-center leading-relaxed max-w-3xl text-lg text-white/90"
-        >
+        <p class="reveal-text text-center leading-relaxed max-w-3xl text-3xl">
             {
                 processed.map((seg, si) => (
                     <>
                         {seg.words.map((word, wi) => (
                             <span
-                                class={`word inline ${spanClass ?? ""} ${seg.class ?? ""}`}
+                                class={`word inline ${spanClass ?? ""} ${seg.class ?? ""} ${word.class ?? ""}`}
                                 data-idx={seg.startIdx + wi}
-                                set:html={`${word} `}
                             >
-                                <!-- {word}{" "} -->
+                                {word.text}{" "}
                             </span>
                         ))}
                         {seg.breakAfter && <br />}
@@ -72,13 +74,21 @@ const processed = segments.map((seg) => ({
         const rawStart = cursor;
         const rawEnd = cursor + rawActive;
         cursor = rawEnd + seg.holdAfter;
-        return { startIdx: seg.startIdx, endIdx: seg.endIdx, rawStart, rawEnd };
+
+        return {
+            startIdx: seg.startIdx,
+            endIdx: seg.endIdx,
+            rawStart,
+            rawEnd,
+        };
     });
 
-    const words = document.querySelectorAll(".word[data-idx]");
+    const section = document.currentScript.closest("section");
+    const words = section.querySelectorAll(".word[data-idx]");
 
     function wordOpacity(idx, wordPhase) {
         if (wordPhase === 0) return 0;
+
         const seg = segBounds.find((s) => idx >= s.startIdx && idx <= s.endIdx);
         if (!seg || wordPhase < seg.rawStart) return 0;
 
@@ -86,20 +96,24 @@ const processed = segments.map((seg) => ({
             1,
             (wordPhase - seg.rawStart) / (seg.rawEnd - seg.rawStart),
         );
+
         const segSize = seg.endIdx - seg.startIdx + 1;
         const localIdx = idx - seg.startIdx;
+
         const fadeWindow = Math.min(1, 3 / segSize);
         const localStart = (localIdx / segSize) * (1 - fadeWindow);
 
         return Math.max(0, Math.min(1, (localPhase - localStart) / fadeWindow));
     }
 
+    let ticking = false;
+    let active = false;
+
     function update() {
+        ticking = false;
+        if (!active) return;
+
         const vh = window.innerHeight;
-        const section = document
-            .querySelector(".reveal-text")
-            ?.closest("section");
-        if (!section) return;
 
         const wordPhase = Math.max(
             0,
@@ -110,12 +124,29 @@ const processed = segments.map((seg) => ({
         );
 
         words.forEach((el) => {
-            el.style.opacity = wordOpacity(parseInt(el.dataset.idx), wordPhase);
+            const idx = parseInt(el.dataset.idx);
+            el.style.opacity = wordOpacity(idx, wordPhase);
         });
     }
 
-    window.addEventListener("scroll", update, { passive: true });
-    update();
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener("scroll", requestTick, { passive: true });
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            active = entries[0].isIntersecting;
+            if (active) requestTick();
+        },
+        { threshold: 0 },
+    );
+
+    observer.observe(section);
 </script>
 <style>
     .word {

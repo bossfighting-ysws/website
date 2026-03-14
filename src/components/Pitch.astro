@@ -3,27 +3,29 @@ import "../styles/global.css";
 import Reveal from "../components/Reveal.astro";
 const segmentsDefinition = [
     {
-        words: ["Boss", "/bôs/"],
+        words: [
+            { text: "Boss", class: "font-bold text-white" },
+            { text: "/bôs/", class: "italic text-white/60" }
+        ],
         class: "font-display text-5xl tracking-widest text-gray-100 [text-shadow:2px_2px_0_red] font-bold",
-        holdAfter: 0.0,
         breakAfter: true,
     },
     {
         words: [
-            "A",
-            `<span class="bold decoration-solid text-red-500">significantly`,
-            "powerful",
-            "non-player",
-            "character",
-            "created",
-            "as",
-            "a",
-            `<span class="text-red-500">major</span>`,
-            `<span class="text-red-500">opponent</span>`,
-            "to",
-            "players.",
+            { text: "A" },
+            { text: "significantly", class: "text-red-500" },
+            { text: "powerful" },
+            { text: "non-player" },
+            { text: "character" },
+            { text: "created" },
+            { text: "as" },
+            { text: "a" },
+            { text: "major", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "opponent", class: "[text-shadow:2px_2px_0_red]" },
+            { text: "to" },
+            { text: "players." },
         ],
-        class: "font-display text-white/60 text-3xl leading-7",
+        class: "font-display text-gray-100 text-3xl leading-7",
     },
 ];
 const segmentsQuestion = [
