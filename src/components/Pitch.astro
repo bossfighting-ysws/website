@@ -67,21 +67,37 @@ const segmentsQuestion = [
     },
     {
         words: [
-            { text: "•", class: "text-red-400 font-bold" },
+            { text: "•", class: "text-red-400" },
             { text: "dungeon", class: "font-semibold" },
             { text: "crawl", class: "" },
             { text: "final", class: "font-semibold" },
             { text: "boss?", class: "text-red-500" },
-            { text: "<br />", html:true, class: "h-4" },
+            { text: "", class: "block h-4" },
+        ],
+        breakAfter: false,
+        class: "font-display text-gray-100 text-2xl leading-7 tracking-wide"
+    },
+    {
+        words: [
             { text: "•", class: "text-red-400" },
             { text: "rhythm", class: "italic text-yellow-400" },
             { text: "game", class: "" },
             { text: "hell?", class: "underline decoration-wavy text-red-500" },
-            { text: "<br />", html:true, class: "h-4" },
+        ],
+        breakAfter: false,
+        class: "font-display text-gray-100 text-2xl leading-7 tracking-wide"
+    },
+    {
+        words: [
             { text: "•", class: "text-red-400" },
             { text: "terraria-esque", class: "italic text-green-300" },
             { text: "bossfight?", class: "font-extrabold text-white/80" },
-            { text: "<br />", html:true, class: "h-4" },
+        ],
+        breakAfter: false,
+        class: "font-display text-gray-100 text-2xl leading-7 tracking-wide"
+    },
+    {
+        words: [
             { text: "All", class: "font-bold" },
             { text: "we", class: "" },
             { text: "need", class: "" },
